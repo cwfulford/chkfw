@@ -1,0 +1,163 @@
+.TH CHKFW 8l "11 September r1.96
+.SH NAME
+.B chkfw
+- check (and correct) running iptables firewall configurations on a
+remote host.
+.SH SYNOPSIS
+\fBchkfw\fR [[\fB-C\fR] [\fB-cc \fI<email_address>\fR] [\fB-d\fR]
+[\fB-l\fR]
+[\fB-m\fI <#max_wait>\fR]
+[\fB-n\fR] [\fB-p \fI<#,#...>\fR] [\fB-T\fR] [\fB-u\fR|\fB-U\fR] [\fB-v\fR]] |
+\fI<hostname>\fR|\fB-V\fR
+.SH AVAILABILITY
+.B chkfw
+is a Bourne shell script which should work equally well on all versions of UNIX,
+Linux and Mac OS X.
+.SH DESCRIPTION
+.B chkfw
+checks running firewalls against a known template on the administration
+server. If the running firewall's configuration has deviated from the known
+configuration
+.B chkfw
+will attempt to restore the firewall to the approved configuration provided that
+the local firewall configuration and boot files are identical to those on the
+administration box and that the plesk configured firewall (if any) has not been activated.
+Urgent alerts are sent by email and optionally by SMS test message (see \fB-T\fR option
+below).
+.LP
+Additionally ports which are expected to be open may be checked if enumerated
+on the command line.
+.SH OPTIONS
+.TP 5
+.B -C
+Check and report on status of firewall and enumerated ports only. Do not change
+running configuration.
+.TP
+.B -cc 
+.I <email_address>
+.br
+Send copies of warnings and alerts to 
+.I email_address
+.TP
+\fB-d\fR
+Start in debug mode.
+.IR chkfw .
+A message will also be emailed to the address set as 
+.I email_rcpt
+with copies to
+.I email_address
+if set with the 
+.I -cc
+option.
+.TP
+.B --force-restore
+This option should only be used with extreme caution. The firewall will be restarted
+with the configuration on the remote host as found in 
+.I /etc/sysconfig/iptables
+and 
+.IR /etc/sysconfig/iptables-config ,
+even if these differ from the canonical files stored on the administration server. 
+.TP 5
+\fB-l\fR
+Use the \fIsyslog\fR facility to log the check and any alerts generated.
+.TP
+\fB-m #\fI<maxi_wait>\fR
+Set the maximum time (in minutes) to wait for the 
+ports to become available.
+.TP
+.TP 5
+\fB-p #\fR[,\fB#\fR[,\fB#\fR]....]
+Enumerated ports to be scanned with 
+.BR nmap .
+.TP
+.B -T
+When raising alerts additionally send text messages to the recipient specified with the variable 
+.IR $txt .
+The mechanism employed is an email to SMS gateway so 
+.I $txt
+is a suitable email address.
+.TP
+.B -u
+Update the firewall tables and firewall configuration file to synchronise
+the administration server with the target host only. 
+.B chkfw
+will compare the output of 
+.B "iptables -nL"
+with a template kept on the administration server and if they differ will
+archive the existing template and update the template with a copy of the output
+from the target host. The firewall configuration file will similarly be updated.
+This is to facilitate making changes on the target host and then synchronising 
+the records on the administration server.
+.B NB
+The source file for reconfiguring the target host iptables is not at present
+changed by using 
+.B -u
+option.
+.TP
+.B -U
+With the
+.B -U
+option the source firewall boot file will be updated from the remote firewall boot
+file (\fI/etc/sysconfig/iptables\fR by default) in addition to the template and configuration
+file as with the 
+.B -u
+option above. It is an error to combine 
+.B -u
+and 
+.B -U
+on the command line. 
+.TP
+.B -v
+Set verbose mode. Ordinarily 
+.B chkfw
+operates silently unless problems are detected. In 
+.I verbose
+mode 
+.B chkfw
+reports on each significant action.
+.TP 5
+.B -V
+Print version details and exit.
+.SH EXAMPLES
+.IP
+.ft CW
+chkfw -m 30 -p 21,22 -v hostname
+.ft R
+.LP
+Check the running 
+.B iptables 
+firewall on 
+.IR hostname .
+Use 
+.B nmap
+to ensure that the ports 21 and 22 are open. Run in verbose mode.
+.SH FILES
+.IR <hostname>:/etc/sysconfig/iptables ,
+.IR <hostname>:/etc/sysconfig/iptables-config
+.IR /usr/local/etc/<hostname>.d/fw .
+
+.SH BUGS
+The script is quite crude having been developed to address problems experienced
+by City Linux clients running on CentOS servers at 1and1. It does depend on
+very specific file and remote access permissions. Particularly it expects that
+where root permission is required 
+.B sudo
+will be used. With judicious use of the 
+.I debug
+and
+.I verbose 
+modes, permission and configuration problems should be relatively easy to 
+resolve.
+.LP
+The check on ftp transfer rates has been recently removed.
+.SH SEE ALSO
+.IR chkdf ,
+.IR chkftpd ,
+.IR chkmail ,
+.IR chkup ,
+.IR clean ,
+.IR secscan .
+.SH AUTHOR
+Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
+.SH HISTORY
+$Id: chkfw.man,v 1.49 2015/04/03 08:30:27 fulford Exp $

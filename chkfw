@@ -1,0 +1,262 @@
+#!/bin/bash
+#$Id: chkfw,v 1.96 2015/03/21 18:15:16 fulford Exp $
+# $Source: /src/merlin/usr/local/etc/RCS/chkfw,v $
+# $Revision: 1.96 $
+# Author C W Fulford.
+# Copyright 2012 - 2013 (c) C W Fulford.
+# Licensed for public use under the LGPL.
+# For assistance contact fulford@fulford.net 0709 229 5385
+###################################################################
+cmd=`basename $0`
+syntax="$0 [[-C] [-cc <email_copy>]  [-d] [-m <max_wait in minutes>] [-p #[,#...]] [-T] [-u|-U] [-v]] <hostname> |-h|-V"
+ver=`echo "$Id: chkfw,v 1.96 2015/03/21 18:15:16 fulford Exp $"|awk '{print $3,$4,$5}'`
+while [ $# -gt 0 ];do
+	case $1 in
+		-C) chkonly=:;shift;;
+		-cc) cc=$2;shift 2;;
+		-d) verbose=0;debug=1;set -x;shift ;;
+	--force-restore) forcerestore=:;shift;;
+		-h) if [ $# -eq 1  ];then
+			man 8l chkfw
+			exit 
+		    else
+			echo "syntax: $syntax">&2
+			exit
+		    fi;;
+		-l) log=:; shift;;
+		-m) max_wait=$2; shift 2;;
+		-n) now=1;shift;;
+		-p) ports=$2 ;shift 2 ;;
+		-T) txt=07935728612@txtlocal.co.uk;shift;;
+		-u) if [ ${update-0} -gt 1 ];then
+		    	echo "$syntax">&2
+			exit 1
+		    else
+	     	    	update=1
+		    fi
+		    shift;;# update tmplt only
+		-U) if [ ${update:-0} -eq 1 ];then
+		    	echo "$syntax">&2
+			exit 1
+		    else
+	     	    	update=2
+		    fi
+		    shift;;# update tmplt config and fw boot file
+		-v) verbose=0 ;shift 1;;
+		-V) echo "$cmd $ver";exit;;
+		-*) echo "syntax: $syntax" >&2; exit 1;;
+		 *) if [ $# -eq 1 ];then
+			host=$1;shift
+		    else
+			echo $syntax >&2
+			exit 1
+		    fi;;
+	esac
+done
+
+#set variables
+[ -z "$host" ]&& { echo $syntax >&2; exit 1 ;}
+ip=`nslookup $host|awk '/Address:/{if($2 !~ "#")print $2}'`
+cname=`nslookup $ip |awk '/name =/{print $4}'` 
+cc=${cc:-fulford@fulford.net}
+delay=0
+debug=${debug:-0}
+email_rcpt=fulford@fulford.net
+logdir=/var/log/$host
+[  -d $logdir ] ||sudo mkdir -m 775 $logdir||
+	{ echo "$cmd: Can't create $logdir">&2 
+			exit 1
+	}
+fwchlog=$logdir/`date +%y%m%d%X`
+fw_restore=0
+iptables=/etc/sysconfig/iptables
+iptables_cfg=/etc/sysconfig/iptables-config
+srcdir=/src/$host
+iptables_src=${srcdir}/${iptables}
+iptables_cfg_src=${srcdir}${iptables_cfg}
+max_wait=${max_wait:-30} # After 30 minutes cron will rerun process
+msgf=/tmp/f$$
+now=${now:-0}
+ports=${ports:-22}
+psa_fwsw=/usr/local/psa/var/modules/firewall/active.flag
+tmplt=/usr/local/etc/$host.d/fw
+tmp=/tmp/`basename $0`$$
+tmp_ports=/tmp/ports.$$
+txtsent=/var/tmp/${cmd}${host}-txt
+update=${update:-0}
+
+[ $verbose ] && echo "$cmd: host=$host ip=$ip cononical=$cname"
+
+# Serious situation send alert by text and e-mail.
+_alert (){
+	   read msg 
+	   [ ! -f $txtsent -a -n "$txt" ] && cc="$cc,$txt"
+	   mailx -s "URGENT $host - $msg" \
+		-c $cc \
+		$email_rcpt </dev/null
+	   touch $txtsent
+	   [ $verbose ] && echo "$cmd: alert sent" >&2
+	   [ $log ] && logger -t $cmd-$host $msg
+}
+
+# function to check if target server up, $port available and ssh ok.
+_host_up (){ 	mins=0
+		nports=`echo $ports|sed -e 's/,/ /g'|wc -w`
+		plist=`echo $ports|sed -e 's/,/ /g'`
+		[ $verbose ] && echo "$cmd: $nports port(s) to check ie. $plist"
+		for p in $plist ;do
+			found=n
+	     		while [ "$mins" -lt $max_wait -a $found = "n" ];do
+		    		nmap -p $p $host >$tmp_ports
+		    		date=`date`	
+		        	[ $verbose ]&& echo "$cmd: checking port $port" 
+		   		if grep -q "$p/tcp open" $tmp_ports ;then
+				     found=y
+		 		     msg="port $p open - $date"
+		        	     [ $verbose ] && echo "$cmd: $msg" 
+		        	else
+		     		     msg="waiting for port $p on $host $date"
+					#if this is first iteration send alert
+	   	    			[ $mins -eq 0 ]&&  echo "$msg"|_alert &
+	   	      			[ $verbose ]&& echo "$cmd: $msg" >&2
+					sleep 60
+					mins=`expr $mins + 1`
+		    	 	fi	
+		     	done
+	     		if [ $found = n ];then
+				msg="$host port $p unavailable - $date"
+				echo "$msg"|_alert 
+	   			[ $verbose ]&& echo "$cmd: $msg" >&2
+			fi
+			nports=`expr $nports - 1`
+	      	done;
+		return $nports
+}
+
+# function to check status of running firewall
+_fwok (){
+	date=`date`
+	ssh  $host "sudo iptables -nL"  >$tmp
+	date > $fwchlog	
+	if [ `sudo diff $tmp $tmplt|tee -a $fwchlog |wc -l` -eq 0 ];then 
+		e_val=0
+	else
+		e_val=1
+	fi	
+	return $e_val 
+}
+ 
+_update (){
+	update=$1
+	ssh $host "sudo iptables -nL" >$tmp
+	tmplt_dir=`dirname $tmplt`
+	[ ! -d $tmplt_dir ] && sudo mkdir -p $tmplt_dir
+	[ ! -f $tmplt ] && sudo touch $tmplt
+	ndiffs=`sudo diff $tmp $tmplt|wc -l` #counts the lines
+	if [ $ndiffs -gt 0 ];then
+		[ $verbose ] && echo "$cmd: updating $tmplt"
+		arc=$tmplt.`date +%s`
+		sudo cp $tmplt $arc
+		sudo cp $tmp $tmplt
+	else
+		[ $verbose ] && echo "$cmd: $tmplt is up to date"
+	fi
+	[ $debug -gt 0 ] && echo $ndiffs >&2
+	src_dir=`dirname $iptables_cfg_src`
+	[ -d $src_dir ] || sudo mkdir -p $src_dir
+	[ -f $iptables_cfg_src ] || sudo touch $iptables_cfg_src
+	ssh ${host} cat $iptables_cfg > $tmp
+	if ! diff $tmp $iptables_cfg_src>/dev/null;then
+		[ $verbose ] && echo "$cmd: updating $iptables_cfg_src"
+		sudo cp $tmp $iptables_cfg_src
+	else
+		echo "$cmd: $iptables_cfg_src is up to date"
+	fi
+	if [ $update -gt 1 ];then
+		[ -f $iptables_src ]||sudo touch $iptables_src
+		ssh ${host} "cat $iptables" >$tmp.iptables
+		if ! diff $tmp.iptables $iptables_src>/dev/null;then
+			[ $verbose ] && echo "$cmd: updating $iptables_src"
+			sudo cp $tmp.iptables $iptables_src
+		else
+			echo "$cmd: $iptables_src is up to date"
+		fi
+	fi	
+	return $ndiffs
+}
+if _host_up;then 
+	if [ $update -gt 0 ];then
+		_update $update
+		exit $?
+	fi
+	# check fw status
+	if _fwok ;then
+		[ $verbose ] && echo "$cmd: active fw matches $tmplt ok" >&2 
+		[ -f $fwchlog ] && rm $fwchlog
+		[ $log ]&& logger -t $cmd-$host "active fw matches $tmplt ok"
+		fw_restore="no"
+	else
+		   msg=" - active FW differs from $tmplt see ${fwchlog} - $date."
+		   echo "$msg"| _alert &
+	   	   [ $verbose ] && echo "$cmd $msg" >&2
+	   	   fw_restore=:
+	fi
+	[ $verbose ] && echo "$cmd: fw_restore is set to $fw_restore" >&2
+
+ 	# Check fw config if server were rebooted, is the remote
+	# configuration the same as the source on the admin server.
+	if ssh $host "cat ${iptables_cfg}"|
+		sudo diff - $iptables_cfg_src>/dev/null
+  	then
+  		ipcfg_ok=0
+		[ $verbose ] && echo "$cmd: ${iptables_cfg} ok" >&2
+  	else
+		fw_restore=no
+ 		date=${date:-`date`}
+  		msg="FW reboot config changed -$date."
+		echo "Warning - $msg"|_alert
+		[ $verbose ]&& echo "$cmd: $msg" >&2
+  	fi
+ 	# Check if fw boot file the same as on admin server
+        if ssh $host "cat ${iptables}"|
+		sudo diff - $iptables_src>/dev/null
+	then
+		ipcfg_ok=0
+		[ $verbose ] && echo "$cmd: $iptables ok" >&2
+	else
+		fw_restore=no
+		date=${date:-`date`}
+		msg="$cmd boot file $iptables changed -$date"
+		echo "$msg"|_alert
+		[ $verbose ]&& echo "$cmd: $msg" >&2
+	fi
+
+  	# Check if psa firewall activated.
+  	if  ssh $host "test -e $psa_fwsw" ;then
+		fw_restore=no
+  		date=${date:-`date`}
+  		echo "$msg psa firewall activated -$date." |_alert 
+		[ $verbose ] && echo "$cmd: psa firewall activated on $host" >&2
+  	else
+		[ $verbose ] && echo "$cmd: psa firewall not activated" >&2
+  	fi
+	if [ -n "$forcerestore" ] ;then
+		fw_restore=yes
+		cat $iptables_src |ssh $host "sudo dd of=$iptables"
+		cat ${iptables_cfg_src}|ssh $host "sudo dd of=$iptables_cfg"
+	fi
+	if [ "$fw_restore" = "yes" ] ;then
+		[ -n "$chkonly" ] && exit
+		echo ssh $host "sudo /etc/init.d/iptables restart&"
+		sleep 10 
+		if _fwok ;then
+			msg="FW restored"
+		else
+			msg="FW restore failed"
+		fi	
+		echo "$msg - see $fwchlog"|_alert
+	fi
+	[ -f $tmp ] && rm $tmp
+	[ -f $txtsent ] && rm $txtsent
+	[ -f $tmp_ports ] && rm $tmp_ports
+fi

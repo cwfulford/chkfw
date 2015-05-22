@@ -1,0 +1,326 @@
+
+<p><a href="#heading1">NAME</a><br/>
+<a href="#heading2">SYNOPSIS</a><br/>
+<a href="#heading3">AVAILABILITY</a><br/>
+<a href="#heading4">DESCRIPTION</a><br/>
+<a href="#heading5">OPTIONS</a><br/>
+<a href="#heading6">EXAMPLES</a><br/>
+<a href="#heading7">FILES</a><br/>
+<a href="#heading8">BUGS</a><br/>
+<a href="#heading9">SEE ALSO</a><br/>
+<a href="#heading10">AUTHOR</a><br/>
+<a href="#heading11">HISTORY</a><br/>
+
+</p>
+<hr/>
+
+
+<h2 id="heading1">NAME
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b> -
+check (and correct) running iptables firewall configurations
+on a remote host.</p>
+
+<h2 id="heading2">SYNOPSIS
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b>
+[[<b>-C</b>] [<b>-cc</b> <i>&lt;email_address&gt;</i>]
+[<b>-d</b>] [<b>-l</b>] [<b>-m</b> <i>&lt;#max_wait&gt;</i>]
+[<b>-n</b>] [<b>-p</b> <i>&lt;#,#...&gt;</i>] [<b>-T</b>]
+[<b>-u</b>|<b>-U</b>] [<b>-v</b>]] |
+<i>&lt;hostname&gt;</i>|<b>-V</b></p>
+
+<h2 id="heading3">AVAILABILITY
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b> is
+a Bourne shell script which should work equally well on all
+versions of UNIX, Linux and Mac OS X.</p>
+
+<h2 id="heading4">DESCRIPTION
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b>
+checks running firewalls against a known template on the
+administration server. If the running firewall&rsquo;s
+configuration has deviated from the known configuration
+<b><a href="./scripts.php?script=chkfw">chkfw</a></b> will attempt to restore the firewall to the
+approved configuration provided that the local firewall
+configuration and boot files are identical to those on the
+administration box and that the plesk configured firewall
+(if any) has not been activated. Urgent alerts are sent by
+email and optionally by SMS test message (see <b>-T</b>
+option below).</p>
+
+<p style="margin-left:11%; margin-top: 1em">Additionally
+ports which are expected to be open may be checked if
+enumerated on the command line.</p>
+
+<h2 id="heading5">OPTIONS
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<colgroup><col width="11%"></col>
+<col width="4%"></col>
+<col width="3%" class="center"></col>
+<col width="82%"></col>
+</colgroup>
+<tr valign="top" align="left">
+<td></td>
+<td>
+
+
+<p style="margin-top: 1em"><b>-C</b></p></td>
+<td></td>
+<td>
+
+
+<p style="margin-top: 1em">Check and report on status of
+firewall and enumerated ports only. Do not change running
+configuration.</p> </td></tr>
+<tr valign="top" align="left">
+<td></td>
+<td>
+
+
+<p><b>-cc</b></p></td>
+<td></td>
+<td>
+
+
+<p><i>&lt;email_address&gt;</i></p></td></tr>
+</table>
+
+<p style="margin-left:18%;">Send copies of warnings and
+alerts to <i>email_address</i></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<colgroup><col width="11%"></col>
+<col width="3%"></col>
+<col width="4%" class="center"></col>
+<col width="82%"></col>
+</colgroup>
+<tr valign="top" align="left">
+<td></td>
+<td>
+
+
+<p style="margin-top: 1em"><b>-d</b></p></td>
+<td></td>
+<td>
+
+
+<p style="margin-top: 1em">Start in debug mode.
+<i><a href="./scripts.php?script=chkfw">chkfw</a></i>. A message will also be emailed to the address
+set as <i>email_rcpt</i> with copies to <i>email_address</i>
+if set with the <i>-cc</i> option.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>--force-restore</b></p>
+
+<p style="margin-left:18%;">This option should only be used
+with extreme caution. The firewall will be restarted with
+the configuration on the remote host as found in
+<i>/etc/sysconfig/iptables</i> and
+<i>/etc/sysconfig/iptables-config</i>, even if these differ
+from the canonical files stored on the administration
+server.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<colgroup><col width="11%"></col>
+<col width="3%"></col>
+<col width="4%" class="center"></col>
+<col width="82%"></col>
+</colgroup>
+<tr valign="top" align="left">
+<td></td>
+<td>
+
+
+<p><b>-l</b></p></td>
+<td></td>
+<td>
+
+
+<p>Use the <i>syslog</i> facility to log the check and any
+alerts generated.</p></td></tr>
+</table>
+
+<p style="margin-left:11%;"><b>-m
+#</b><i>&lt;maxi_wait&gt;</i></p>
+
+<p style="margin-left:18%;">Set the maximum time (in
+minutes) to wait for the ports to become available.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>-p
+#</b>[,<b>#</b>[,<b>#</b>]....]</p>
+
+<p style="margin-left:18%;">Enumerated ports to be scanned
+with <b><a href="http://nmap.org/book/man.html">
+nmap
+</a></b>.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<colgroup><col width="11%"></col>
+<col width="3%"></col>
+<col width="4%" class="center"></col>
+<col width="82%"></col>
+</colgroup>
+<tr valign="top" align="left">
+<td></td>
+<td>
+
+
+<p><b>-T</b></p></td>
+<td></td>
+<td>
+
+
+<p>When raising alerts additionally send text messages to
+the recipient specified with the variable <i>$txt</i>. The
+mechanism employed is an email to SMS gateway so <i>$txt</i>
+is a suitable email address.</p></td></tr>
+<tr valign="top" align="left">
+<td></td>
+<td>
+
+
+<p><b>-u</b></p></td>
+<td></td>
+<td>
+
+
+<p>Update the firewall tables and firewall configuration
+file to synchronise the administration server with the
+target host only. <b><a href="./scripts.php?script=chkfw">chkfw</a></b> will compare the output of
+<b>iptables -nL</b> with a template kept on the
+administration server and if they differ will archive the
+existing template and update the template with a copy of the
+output from the target host. The firewall configuration file
+will similarly be updated. This is to facilitate making
+changes on the target host and then synchronising the
+records on the administration server. <b>NB</b> The source
+file for reconfiguring the target host iptables is not at
+present changed by using <b>-u</b> option.</p></td></tr>
+<tr valign="top" align="left">
+<td></td>
+<td>
+
+
+<p><b>-U</b></p></td>
+<td></td>
+<td>
+
+
+<p>With the <b>-U</b> option the source firewall boot file
+will be updated from the remote firewall boot file
+(<i>/etc/sysconfig/iptables</i> by default) in addition to
+the template and configuration file as with the <b>-u</b>
+option above. It is an error to combine <b>-u</b> and
+<b>-U</b> on the command line.</p></td></tr>
+<tr valign="top" align="left">
+<td></td>
+<td>
+
+
+<p><b>-v</b></p></td>
+<td></td>
+<td>
+
+
+<p>Set verbose mode. Ordinarily <b><a href="./scripts.php?script=chkfw">chkfw</a></b> operates
+silently unless problems are detected. In <i>verbose</i>
+mode <b><a href="./scripts.php?script=chkfw">chkfw</a></b> reports on each significant action.</p></td></tr>
+<tr valign="top" align="left">
+<td></td>
+<td>
+
+
+<p><b>-V</b></p></td>
+<td></td>
+<td>
+
+
+<p>Print version details and exit.</p></td></tr>
+</table>
+
+<h2 id="heading6">EXAMPLES
+</h2>
+
+
+<p style="margin-left:22%; margin-top: 1em"><tt><a href="./scripts.php?script=chkfw">chkfw</a> -m 30
+-p 21,22 -v hostname</tt></p>
+
+<p style="margin-left:11%; margin-top: 1em">Check the
+running <b>iptables</b> firewall on <i>hostname</i>. Use
+<b><a href="http://nmap.org/book/man.html">
+nmap
+</a></b> to ensure that the ports 21 and 22 are open. Run
+in verbose mode.</p>
+
+<h2 id="heading7">FILES
+</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><i>&lt;hostname&gt;:/etc/sysconfig/iptables</i>,
+<i>&lt;hostname&gt;:/etc/sysconfig/iptables-config
+/usr/local/etc/&lt;hostname&gt;.d/fw</i>.</p>
+
+<h2 id="heading8">BUGS
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The script is
+quite crude having been developed to address problems
+experienced by <a href="http://www.citylinux.com"
+title="Go to the City Linux homepage">
+City Linux
+</a> clients running on CentOS servers
+at 1and1. It does depend on very specific file and remote
+access permissions. Particularly it expects that where root
+permission is required <b>sudo</b> will be used. With
+judicious use of the <i>debug</i> and <i>verbose</i> modes,
+permission and configuration problems should be relatively
+easy to resolve.</p>
+
+<p style="margin-left:11%; margin-top: 1em">The check on
+ftp transfer rates has been recently removed.</p>
+
+<h2 id="heading9">SEE ALSO
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><a href="./scripts.php?script=chkdf&amp;man=y">chkdf</a>,
+<a href="./scripts.php?script=chkftpd&amp;man=y">chkftpd</a>, <a href="./scripts.php?script=chkmail&amp;man=y">chkmail</a>, <a href="./scripts.php?script=chkup&amp;man=y">chkup</a>, <a href="./scripts.php?script=clean&amp;man=y">clean</a>,
+<a href="./scripts.php?script=secscan&amp;man=y">secscan</a>.</p>
+
+<h2 id="heading10">AUTHOR
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">Clifford W
+Fulford, <a href="http://www.citylinux.com"
+title="Go to the City Linux homepage">
+City Linux
+</a>. Contact <a href="mailto:fulford@fulford.net" title="Send mail to Clifford W Fulford">fulford@fulford.net</a> or +44
+(0)709 229 5385.</p>
+
+<h2 id="heading11">HISTORY
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">$Id:
+chkfw.man,v 1.49 2015/04/03 08:30:27 fulford Exp $</p>
+<hr/>
