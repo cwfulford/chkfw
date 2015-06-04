@@ -1,5 +1,5 @@
 #!/bin/bash
-#$Id: chkfw,v 1.97 2015/06/04 07:04:30 fulford Exp fulford $
+#$Id: chkfw,v 1.97 2015/06/04 07:04:30 fulford Exp $
 # $Source: /src/merlin/usr/local/etc/RCS/chkfw,v $
 # $Revision: 1.97 $
 # Author C W Fulford.
@@ -9,7 +9,7 @@
 ###################################################################
 cmd=`basename $0`
 syntax="$0 [[-C] [-cc <email_copy>]  [-d] [-m <max_wait in minutes>] [-p #[,#...]] [-T] [-u|-U] [-v]] <hostname> |-h|-V"
-ver=`echo "$Id: chkfw,v 1.97 2015/06/04 07:04:30 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
+ver=`echo "$Id: chkfw,v 1.97 2015/06/04 07:04:30 fulford Exp $"|awk '{print $3,$4,$5}'`
 while [ $# -gt 0 ];do
 	case $1 in
 		-C) chkonly=:;shift;;
