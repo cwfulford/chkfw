@@ -1,4 +1,4 @@
-.TH CHKFW 8l "11 September r1.96
+.TH CHKFW 8l "11 September r1.97
 .SH NAME
 .B chkfw
 - check (and correct) running iptables firewall configurations on a
