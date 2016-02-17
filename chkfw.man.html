@@ -1,5 +1,5 @@
 
-<p><a href="#heading1">NAME</a><br/>
+<p style="margin-left:11%"><a href="#heading1">NAME</a><br/>
 <a href="#heading2">SYNOPSIS</a><br/>
 <a href="#heading3">AVAILABILITY</a><br/>
 <a href="#heading4">DESCRIPTION</a><br/>
@@ -17,36 +17,25 @@
 
 <h2 id="heading1">NAME
 </h2>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b> -
+<p style="margin-left:11%;margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b> -
 check (and correct) running iptables firewall configurations
 on a remote host.</p>
-
 <h2 id="heading2">SYNOPSIS
 </h2>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b>
+<p style="margin-left:11%;margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b>
 [[<b>-C</b>] [<b>-cc</b> <i>&lt;email_address&gt;</i>]
 [<b>-d</b>] [<b>-l</b>] [<b>-m</b> <i>&lt;#max_wait&gt;</i>]
 [<b>-n</b>] [<b>-p</b> <i>&lt;#,#...&gt;</i>] [<b>-T</b>]
 [<b>-u</b>|<b>-U</b>] [<b>-v</b>]] |
-<i>&lt;hostname&gt;</i>|<b>-V</b></p>
-
+<i>&lt;hostname&gt;</i>|<b>-V</b>
 <h2 id="heading3">AVAILABILITY
 </h2>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b> is
+<p style="margin-left:11%;margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b> is
 a Bourne shell script which should work equally well on all
 versions of UNIX, Linux and Mac OS X.</p>
-
 <h2 id="heading4">DESCRIPTION
 </h2>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b>
+<p style="margin-left:11%;margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=chkfw">chkfw</a></b>
 checks running firewalls against a known template on the
 administration server. If the running firewall&rsquo;s
 configuration has deviated from the known configuration
@@ -57,151 +46,56 @@ administration box and that the plesk configured firewall
 (if any) has not been activated. Urgent alerts are sent by
 email and optionally by SMS test message (see <b>-T</b>
 option below).</p>
-
-<p style="margin-left:11%; margin-top: 1em">Additionally
+<p style="margin-left:11%;margin-left:11%; margin-top: 1em">Additionally
 ports which are expected to be open may be checked if
 enumerated on the command line.</p>
-
 <h2 id="heading5">OPTIONS
 </h2>
-
-
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
-<colgroup><col width="11%"></col>
-<col width="4%"></col>
-<col width="3%" class="center"></col>
-<col width="82%"></col>
-</colgroup>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p style="margin-top: 1em"><b>-C</b></p></td>
-<td></td>
-<td>
-
-
-<p style="margin-top: 1em">Check and report on status of
+       
+<p style="margin-left:11%;margin-top: 1em"><b>-C</b>
+<p style="margin-left:11%;margin-top: 1em">Check and report on status of
 firewall and enumerated ports only. Do not change running
-configuration.</p> </td></tr>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-cc</b></p></td>
-<td></td>
-<td>
-
-
-<p><i>&lt;email_address&gt;</i></p></td></tr>
-</table>
-
-<p style="margin-left:18%;">Send copies of warnings and
-alerts to <i>email_address</i></p>
-
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
-<colgroup><col width="11%"></col>
-<col width="3%"></col>
-<col width="4%" class="center"></col>
-<col width="82%"></col>
-</colgroup>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p style="margin-top: 1em"><b>-d</b></p></td>
-<td></td>
-<td>
-
-
-<p style="margin-top: 1em">Start in debug mode.
+configuration.</p> 
+<p style="margin-left:11%"><b>-cc</b>
+<p style="margin-left:11%"><i>&lt;email_address&gt;</i>
+<p style="margin-left:11%;margin-left:18%;">Send copies of warnings and
+alerts to <i>email_address</i>
+       
+<p style="margin-left:11%;margin-top: 1em"><b>-d</b>
+<p style="margin-left:11%;margin-top: 1em">Start in debug mode.
 <i><a href="./scripts.php?script=chkfw">chkfw</a></i>. A message will also be emailed to the address
 set as <i>email_rcpt</i> with copies to <i>email_address</i>
-if set with the <i>-cc</i> option.</p></td></tr>
-</table>
-
-<p style="margin-left:11%;"><b>--force-restore</b></p>
-
-<p style="margin-left:18%;">This option should only be used
+if set with the <i>-cc</i> option.</p>
+<p style="margin-left:11%;margin-left:11%;"><b>--force-restore</b>
+<p style="margin-left:11%;margin-left:18%;">This option should only be used
 with extreme caution. The firewall will be restarted with
 the configuration on the remote host as found in
 <i>/etc/sysconfig/iptables</i> and
 <i>/etc/sysconfig/iptables-config</i>, even if these differ
 from the canonical files stored on the administration
 server.</p>
-
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
-<colgroup><col width="11%"></col>
-<col width="3%"></col>
-<col width="4%" class="center"></col>
-<col width="82%"></col>
-</colgroup>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-l</b></p></td>
-<td></td>
-<td>
-
-
-<p>Use the <i>syslog</i> facility to log the check and any
-alerts generated.</p></td></tr>
-</table>
-
-<p style="margin-left:11%;"><b>-m
-#</b><i>&lt;maxi_wait&gt;</i></p>
-
-<p style="margin-left:18%;">Set the maximum time (in
+       
+<p style="margin-left:11%"><b>-l</b>
+<p style="margin-left:11%">Use the <i>syslog</i> facility to log the check and any
+alerts generated.</p>
+<p style="margin-left:11%;margin-left:11%;"><b>-m
+#</b><i>&lt;maxi_wait&gt;</i>
+<p style="margin-left:11%;margin-left:18%;">Set the maximum time (in
 minutes) to wait for the ports to become available.</p>
-
-<p style="margin-left:11%; margin-top: 1em"><b>-p
+<p style="margin-left:11%;margin-left:11%; margin-top: 1em"><b>-p
 #</b>[,<b>#</b>[,<b>#</b>]....]</p>
-
-<p style="margin-left:18%;">Enumerated ports to be scanned
+<p style="margin-left:11%;margin-left:18%;">Enumerated ports to be scanned
 with <b><a href="http://nmap.org/book/man.html">
 nmap
 </a></b>.</p>
-
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
-<colgroup><col width="11%"></col>
-<col width="3%"></col>
-<col width="4%" class="center"></col>
-<col width="82%"></col>
-</colgroup>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-T</b></p></td>
-<td></td>
-<td>
-
-
-<p>When raising alerts additionally send text messages to
+       
+<p style="margin-left:11%"><b>-T</b>
+<p style="margin-left:11%">When raising alerts additionally send text messages to
 the recipient specified with the variable <i>$txt</i>. The
 mechanism employed is an email to SMS gateway so <i>$txt</i>
-is a suitable email address.</p></td></tr>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-u</b></p></td>
-<td></td>
-<td>
-
-
-<p>Update the firewall tables and firewall configuration
+is a suitable email address.</p>
+<p style="margin-left:11%"><b>-u</b>
+<p style="margin-left:11%">Update the firewall tables and firewall configuration
 file to synchronise the administration server with the
 target host only. <b><a href="./scripts.php?script=chkfw">chkfw</a></b> will compare the output of
 <b>iptables -nL</b> with a template kept on the
@@ -212,63 +106,30 @@ will similarly be updated. This is to facilitate making
 changes on the target host and then synchronising the
 records on the administration server. <b>NB</b> The source
 file for reconfiguring the target host iptables is not at
-present changed by using <b>-u</b> option.</p></td></tr>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-U</b></p></td>
-<td></td>
-<td>
-
-
-<p>With the <b>-U</b> option the source firewall boot file
+present changed by using <b>-u</b> option.</p>
+<p style="margin-left:11%"><b>-U</b>
+<p style="margin-left:11%">With the <b>-U</b> option the source firewall boot file
 will be updated from the remote firewall boot file
 (<i>/etc/sysconfig/iptables</i> by default) in addition to
 the template and configuration file as with the <b>-u</b>
 option above. It is an error to combine <b>-u</b> and
-<b>-U</b> on the command line.</p></td></tr>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-v</b></p></td>
-<td></td>
-<td>
-
-
-<p>Set verbose mode. Ordinarily <b><a href="./scripts.php?script=chkfw">chkfw</a></b> operates
+<b>-U</b> on the command line.</p>
+<p style="margin-left:11%"><b>-v</b>
+<p style="margin-left:11%">Set verbose mode. Ordinarily <b><a href="./scripts.php?script=chkfw">chkfw</a></b> operates
 silently unless problems are detected. In <i>verbose</i>
-mode <b><a href="./scripts.php?script=chkfw">chkfw</a></b> reports on each significant action.</p></td></tr>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-V</b></p></td>
-<td></td>
-<td>
-
-
-<p>Print version details and exit.</p></td></tr>
-</table>
-
+mode <b><a href="./scripts.php?script=chkfw">chkfw</a></b> reports on each significant action.</p>
+<p style="margin-left:11%"><b>-V</b>
+<p style="margin-left:11%">Print version details and exit.</p>
 <h2 id="heading6">EXAMPLES
 </h2>
-
-
-<p style="margin-left:22%; margin-top: 1em"><tt><a href="./scripts.php?script=chkfw">chkfw</a> -m 30
+<p style="margin-left:11%;margin-left:22%; margin-top: 1em"><tt><a href="./scripts.php?script=chkfw">chkfw</a> -m 30
 -p 21,22 -v hostname</tt></p>
-
-<p style="margin-left:11%; margin-top: 1em">Check the
+<p style="margin-left:11%;margin-left:11%; margin-top: 1em">Check the
 running <b>iptables</b> firewall on <i>hostname</i>. Use
 <b><a href="http://nmap.org/book/man.html">
 nmap
 </a></b> to ensure that the ports 21 and 22 are open. Run
 in verbose mode.</p>
-
 <h2 id="heading7">FILES
 </h2>
 
@@ -322,6 +183,6 @@ City Linux
 
 
 <p style="margin-left:11%; margin-top: 1em">$Id:
-chkfw.man,v 1.53 2015/09/22 14:23:53 fulford Exp fulford
+chkfw.man,v 1.54 2016/02/17 14:58:06 fulford Exp fulford
 $</p>
 <hr/>
