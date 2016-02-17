@@ -161,4 +161,4 @@ The check on ftp transfer rates has been recently removed.
 .SH AUTHOR
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
 .SH HISTORY
-$Id: chkfw.man,v 1.57 2016/02/17 17:53:36 fulford Exp fulford $
+$Id: chkfw.man,v 1.57 2016/02/17 17:53:36 fulford Exp $

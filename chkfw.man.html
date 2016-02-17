@@ -4,11 +4,11 @@
 - check (and correct) running iptables firewall configurations on a remote host.
 <h2 id="heading2">SYNOPSIS</h2>
 <p class=indent>
-<b>chkfw</b> [[<b>-C</b>] [<b>-cc </b><i><email_address></i>] [<b>-d</b>]
+<b>chkfw</b> [[<b>-C</b>] [<b>-cc </b><i>&lt;email_address&gt;</i>] [<b>-d</b>]
 [<b>-l</b>]
-[\fB-m\<i><#max_wait></i>]</i>
-[<b>-n</b>] [<b>-p </b><i><#,#...></i>] [<b>-T</b>] [<b>-u</b>|<b>-U</b>] [<b>-v</b>]] |
-<i><hostname></i>|<b>-V</b>
+[\fB-m\<i>&lt;#max_wait&gt;</i>]</i>
+[<b>-n</b>] [<b>-p </b><i>&lt;#,#...&gt;</i>] [<b>-T</b>] [<b>-u</b>|<b>-U</b>] [<b>-v</b>]] |
+<i>&lt;hostname&gt;</i>|<b>-V</b>
 </p>
 <h2 id="heading3">AVAILABILITY</h2>
 <p class=indent>
@@ -40,7 +40,7 @@ Check and report on status of firewall and enumerated ports only. Do not change
 running configuration.
 <p class="indent">
 <b>-cc </b>
-<i><email_address></i>
+<i>&lt;email_address&gt;</i>
 .br
 Send copies of warnings and alerts to 
 <i>email_address</i>
@@ -67,7 +67,7 @@ even if these differ from the canonical files stored on the administration serve
 <b>-l</b>
 Use the <i>syslog</i> facility to log the check and any alerts generated.
 <p class="indent">
-<b>-m #</b><i><maxi_wait></i>
+<b>-m #</b><i>&lt;maxi_wait&gt;</i>
 Set the maximum time (in minutes) to wait for the 
 ports to become available.
 <p class="indent">
@@ -140,9 +140,9 @@ Use
 to ensure that the ports 21 and 22 are open. Run in verbose mode.
 <h2 id="heading7">FILES</h2>
 <p class=indent>
-<i><hostname>:/etc/sysconfig/iptables</i>,
-<i><hostname>:/etc/sysconfig/iptables-config</i>,
-.IR /usr/local/etc/<hostname>.d/fw .
+<i>&lt;hostname&gt;:/etc/sysconfig/iptables</i>,
+<i>&lt;hostname&gt;:/etc/sysconfig/iptables-config</i>,
+.IR /usr/local/etc/&lt;hostname&gt;.d/fw .
 
 <h2 id="heading8">BUGS</h2>
 <p class=indent>
@@ -172,4 +172,4 @@ The check on ftp transfer rates has been recently removed.
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
 <h2 id="heading11">HISTORY</h2>
 <p class=indent>
-$Id: chkfw.man,v 1.57 2016/02/17 17:53:36 fulford Exp fulford $
+$Id: chkfw.man,v 1.57 2016/02/17 17:53:36 fulford Exp $
