@@ -2,6 +2,7 @@
 <p class="indent">
 <b>chkfw</b>
 - check (and correct) running iptables firewall configurations on a remote host.
+</p>
 <h2 id="heading2">SYNOPSIS</h2>
 <p class=indent>
 <b>chkfw</b> [[<b>-C</b>] [<b>-cc </b><i>&lt;email_address&gt;</i>] [<b>-d</b>]
@@ -35,6 +36,7 @@ Urgent alerts are sent by email and optionally by SMS text message
 <p class="indent">
 Additionally ports which are expected to be open may be checked if enumerated
 on the command line.
+</p>
 <h2 id="heading5">OPTIONS</h2>
 <p class=indent>
 </p>
@@ -140,6 +142,7 @@ reports on each significant action.
 <p class="indent">
 <b>-V</b>
 Print version details and exit.
+</p>
 <h2 id="heading6">EXAMPLES</h2>
 <p class=indent>
 <div class="cmdline">
@@ -156,12 +159,14 @@ firewall on
 Use 
 <b>nmap</b>
 to ensure that the ports 21 and 22 are open. Run in verbose mode.
+</p>
 <h2 id="heading7">FILES</h2>
 <p class="indent">
 <i>&lt;hostname&gt;:/etc/sysconfig/iptables</i>,
 <i>&lt;hostname&gt;:/etc/sysconfig/iptables-config</i>,
 <i>/usr/local/etc/&lt;hostname&gt;.d/fw</i>.
 
+</p>
 <h2 id="heading8">BUGS</h2>
 <p class="indent">
 The script is quite crude having been developed to address problems experienced
@@ -178,6 +183,7 @@ resolve.
 </p>
 <p class="indent">
 The check on ftp transfer rates has been recently removed.
+</p>
 <h2 id="heading9">SEE ALSO</h2>
 <p class="indent">
 <i>chkdf</i>,
@@ -186,9 +192,11 @@ The check on ftp transfer rates has been recently removed.
 <i>chkup</i>,
 <i>clean</i>,
 <i>secscan</i>.
+</p>
 <h2 id="heading10">AUTHOR</h2>
 <p class="indent">
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
+</p>
 <h2 id="heading11">HISTORY</h2>
 <p class="indent">
 $Id: chkfw.man,v 1.57 2016/02/17 17:53:36 fulford Exp $
