@@ -26,24 +26,29 @@ will attempt to restore the firewall to the approved configuration, provided
 that the local firewall configuration and boot files are identical to those on
 the administration box and that the plesk configured firewall (if any) has not
 been activated.
+</p>
 <p class="indent">
 Urgent alerts are sent by email and optionally by SMS text message 
 (see <b>-T</b> option below).
+</p>
 <p class="indent">
 Additionally ports which are expected to be open may be checked if enumerated
 on the command line.
 <h2 id="heading5">OPTIONS</h2>
 <p class=indent>
+</p>
 <p class="indent">
 <b>-C</b>
 Check and report on status of firewall and enumerated ports only. Do not change
 running configuration.
+</p>
 <p class="indent">
 <b>-cc </b>
 <i>&lt;email_address&gt;</i>
 .br
 Send copies of warnings and alerts to 
 <i>email_address</i>
+</p>
 <p class="indent">
 <b>-d</b>
 Start in debug mode.
@@ -55,6 +60,7 @@ with copies to
 if set with the 
 <i>-cc</i>
 option.
+</p>
 <p class="indent">
 <b>--force-restore</b>
 This option should only be used with extreme caution. The firewall will be restarted
@@ -63,18 +69,23 @@ with the configuration on the remote host as found in
 and 
 <i>/etc/sysconfig/iptables-config</i>,
 even if these differ from the canonical files stored on the administration server. 
+</p>
 <p class="indent">
 <b>-l</b>
 Use the <i>syslog</i> facility to log the check and any alerts generated.
+</p>
 <p class="indent">
 <b>-m #</b><i>&lt;maxi_wait&gt;</i>
 Set the maximum time (in minutes) to wait for the 
 ports to become available.
+</p>
 <p class="indent">
+</p>
 <p class="indent">
 <b>-p #</b>[,<b>#</b>[,<b>#</b>]....]
 Enumerated ports to be scanned with 
 .BR nmap .
+</p>
 <p class="indent">
 <b>-T</b>
 When raising alerts additionally send text messages to the recipient specified with the variable 
@@ -82,6 +93,7 @@ When raising alerts additionally send text messages to the recipient specified w
 The mechanism employed is an email to SMS gateway so 
 <i>$txt</i>
 is a suitable email address.
+</p>
 <p class="indent">
 <b>-u</b>
 Update the firewall tables and firewall configuration file to synchronise
@@ -99,6 +111,7 @@ The source file for reconfiguring the target host iptables is not at present
 changed by using 
 <b>-u</b>
 option.
+</p>
 <p class="indent">
 <b>-U</b>
 With the
@@ -112,6 +125,7 @@ option above. It is an error to combine
 and 
 <b>-U</b>
 on the command line. 
+</p>
 <p class="indent">
 <b>-v</b>
 Set verbose mode. Ordinarily 
@@ -121,6 +135,7 @@ operates silently unless problems are detected. In
 mode 
 <b>chkfw</b>
 reports on each significant action.
+</p>
 <p class="indent">
 <b>-V</b>
 Print version details and exit.
@@ -131,6 +146,7 @@ Print version details and exit.
 chkfw -m 30 -p 21,22 -v hostname
 </pre>
 </div>
+</p>
 <p class="indent">
 Check the running 
 <b>iptables </b>
@@ -158,6 +174,7 @@ and
 <i>verbose </i>
 modes, permission and configuration problems should be relatively easy to 
 resolve.
+</p>
 <p class="indent">
 The check on ftp transfer rates has been recently removed.
 <h2 id="heading9">SEE ALSO</h2>
