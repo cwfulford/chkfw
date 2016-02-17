@@ -1,161 +1,322 @@
+<p>
 <h2 id="heading1">NAME</h2>
+<p>
 <b>chkfw</b>
+<p>
 - check (and correct) running iptables firewall configurations on a remote host.</p>
+<p>
 <h2 id="heading2">SYNOPSIS</h2>
+<p>
 <b>chkfw</b> [[<b>-C</b>] [<b>-cc </b><i><email_address></i>] [<b>-d</b>]</p>
+<p>
 [<b>-l</b>]</p>
+<p>
 [<b>-m</b><i> <#max_wait></i>]</p>
+<p>
 [<b>-n</b>] [<b>-p </b><i><#,#...></i>] [<b>-T</b>] [<b>-u</b>|<b>-U</b>] [<b>-v</b>]] |</p>
+<p>
 <i><hostname></i>|<b>-V</b></p>
+<p>
 <h2 id="heading3">AVAILABILITY</h2>
+<p>
 <b>chkfw</b>
+<p>
 is a Bourne shell script which should work equally well on all versions of UNIX,
+<p>
 Linux and Mac OS X.
+<p>
 <h2 id="heading4">DESCRIPTION</h2>
+<p>
 <b>chkfw</b>
+<p>
 checks running firewalls against a known template on the administration
+<p>
 server. If the running firewall's configuration has deviated from the known
+<p>
 configuration
+<p>
 <b>chkfw</b>
+<p>
 will attempt to restore the firewall to the approved configuration provided that
+<p>
 the local firewall configuration and boot files are identical to those on the
+<p>
 administration box and that the plesk configured firewall (if any) has not been activated.
+<p>
 Urgent alerts are sent by email and optionally by SMS test message (see <b>-T</b> option</p>
+<p>
 below).
 <p>
+<p>
+<p>
 Additionally ports which are expected to be open may be checked if enumerated
+<p>
 on the command line.
+<p>
 <h2 id="heading5">OPTIONS</h2>
+<p>
 <p class="indent"> 5
+<p>
 <b>-C</b></p>
+<p>
 Check and report on status of firewall and enumerated ports only. Do not change
+<p>
 running configuration.
+<p>
 <p class="indent">
+<p>
 <b>-cc </b></p>
+<p>
 .I <email_address>
+<p>
 .br
+<p>
 Send copies of warnings and alerts to 
+<p>
 .I email_address
+<p>
 <p class="indent">
+<p>
 <b>-d</b></p>
+<p>
 Start in debug mode.
+<p>
 .IR chkfw .
+<p>
 A message will also be emailed to the address set as 
+<p>
 .I email_rcpt
+<p>
 with copies to
+<p>
 .I email_address
+<p>
 if set with the 
+<p>
 .I -cc</p>
+<p>
 option.
+<p>
 <p class="indent">
+<p>
 <b>--force-restore</b></p>
+<p>
 This option should only be used with extreme caution. The firewall will be restarted
+<p>
 with the configuration on the remote host as found in 
+<p>
 .I /etc/sysconfig/iptables
+<p>
 and 
+<p>
 .IR /etc/sysconfig/iptables-config ,</p>
+<p>
 even if these differ from the canonical files stored on the administration server. 
+<p>
 <p class="indent"> 5
+<p>
 <b>-l</b></p>
+<p>
 Use the <i>syslog</i> facility to log the check and any alerts generated.
+<p>
 <p class="indent">
+<p>
 <b>-m #</b><i><maxi_wait></i></p>
+<p>
 Set the maximum time (in minutes) to wait for the 
+<p>
 ports to become available.
+<p>
 <p class="indent">
+<p>
 <p class="indent"> 5
+<p>
 <b>-p #</b>[,<b>#</b>[,<b>#</b>]....]</p>
+<p>
 Enumerated ports to be scanned with 
+<p>
 .BR nmap .
+<p>
 <p class="indent">
+<p>
 <b>-T</b></p>
+<p>
 When raising alerts additionally send text messages to the recipient specified with the variable 
+<p>
 .IR $txt .
+<p>
 The mechanism employed is an email to SMS gateway so 
+<p>
 .I $txt
+<p>
 is a suitable email address.
+<p>
 <p class="indent">
+<p>
 <b>-u</b></p>
+<p>
 Update the firewall tables and firewall configuration file to synchronise
+<p>
 the administration server with the target host only. 
+<p>
 <b>chkfw</b>
+<p>
 will compare the output of 
+<p>
 <b>"iptables -nL"</b></p>
+<p>
 with a template kept on the administration server and if they differ will
+<p>
 archive the existing template and update the template with a copy of the output
+<p>
 from the target host. The firewall configuration file will similarly be updated.
+<p>
 This is to facilitate making changes on the target host and then synchronising 
+<p>
 the records on the administration server.
+<p>
 <b>NB</b>
+<p>
 The source file for reconfiguring the target host iptables is not at present
+<p>
 changed by using 
+<p>
 <b>-u</b></p>
+<p>
 option.
+<p>
 <p class="indent">
+<p>
 <b>-U</b></p>
+<p>
 With the
+<p>
 <b>-U</b></p>
+<p>
 option the source firewall boot file will be updated from the remote firewall boot
+<p>
 file (<i>/etc/sysconfig/iptables</i> by default) in addition to the template and configuration
+<p>
 file as with the 
+<p>
 <b>-u</b></p>
+<p>
 option above. It is an error to combine 
+<p>
 <b>-u</b></p>
+<p>
 and 
+<p>
 <b>-U</b></p>
+<p>
 on the command line. 
+<p>
 <p class="indent">
+<p>
 <b>-v</b></p>
+<p>
 Set verbose mode. Ordinarily 
+<p>
 <b>chkfw</b>
+<p>
 operates silently unless problems are detected. In 
+<p>
 .I verbose
+<p>
 mode 
+<p>
 <b>chkfw</b>
+<p>
 reports on each significant action.
+<p>
 <p class="indent"> 5
+<p>
 <b>-V</b></p>
+<p>
 Print version details and exit.
+<p>
 <h2 id="heading6">EXAMPLES</h2>
+<p>
 .IP
+<p>
 .ft CW
+<p>
 chkfw -m 30 -p 21,22 -v hostname</p>
+<p>
 .ft R
 <p>
+<p>
+<p>
 Check the running 
+<p>
 <b>iptables </b>
+<p>
 firewall on 
+<p>
 .IR hostname .
+<p>
 Use 
+<p>
 <b>nmap</b>
+<p>
 to ensure that the ports 21 and 22 are open. Run in verbose mode.
+<p>
 <h2 id="heading7">FILES</h2>
+<p>
 .IR <hostname>:/etc/sysconfig/iptables ,
+<p>
 .IR <hostname>:/etc/sysconfig/iptables-config</p>
+<p>
 .IR /usr/local/etc/<hostname>.d/fw .
+<p>
 
+<p>
 <h2 id="heading8">BUGS</h2>
+<p>
 The script is quite crude having been developed to address problems experienced
+<p>
 by City Linux clients running on CentOS servers at 1and1. It does depend on
+<p>
 very specific file and remote access permissions. Particularly it expects that
+<p>
 where root permission is required 
+<p>
 <b>sudo</b>
+<p>
 will be used. With judicious use of the 
+<p>
 .I debug
+<p>
 and
+<p>
 .I verbose 
+<p>
 modes, permission and configuration problems should be relatively easy to 
+<p>
 resolve.
 <p>
+<p>
+<p>
 The check on ftp transfer rates has been recently removed.
+<p>
 <h2 id="heading9">SEE ALSO</h2>
+<p>
 .IR chkdf ,
+<p>
 .IR chkftpd ,
+<p>
 .IR chkmail ,
+<p>
 .IR chkup ,
+<p>
 .IR clean ,
+<p>
 .IR secscan .
+<p>
 .SH AUTHOR
+<p>
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
+<p>
 .SH HISTORY
+<p>
 $Id: chkfw.man,v 1.55 2016/02/17 16:46:01 fulford Exp $
