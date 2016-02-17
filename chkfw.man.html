@@ -47,7 +47,7 @@ Send copies of warnings and alerts to
 <p class="indent">
 <b>-d</b>
 Start in debug mode.
-.IR chkfw .
+<i> chkfw </i>.
 A message will also be emailed to the address set as 
 <i>email_rcpt</i>
 with copies to
@@ -78,7 +78,7 @@ Enumerated ports to be scanned with
 <p class="indent">
 <b>-T</b>
 When raising alerts additionally send text messages to the recipient specified with the variable 
-.IR $txt .
+<i> $txt </i>.
 The mechanism employed is an email to SMS gateway so 
 <i>$txt</i>
 is a suitable email address.
@@ -134,7 +134,7 @@ chkfw -m 30 -p 21,22 -v hostname
 Check the running 
 <b>iptables </b>
 firewall on 
-.IR hostname .
+<i> hostname </i>.
 Use 
 <b>nmap</b>
 to ensure that the ports 21 and 22 are open. Run in verbose mode.
@@ -142,7 +142,7 @@ to ensure that the ports 21 and 22 are open. Run in verbose mode.
 <p class=indent>
 <i> <hostname>:/etc/sysconfig/iptables </i>,
 .IR <hostname>:/etc/sysconfig/iptables-config
-.IR /usr/local/etc/<hostname>.d/fw .
+<i> /usr/local/etc/<hostname></i>.d/fw .
 
 <h2 id="heading8">BUGS</h2>
 <p class=indent>
@@ -166,7 +166,7 @@ The check on ftp transfer rates has been recently removed.
 <i> chkmail </i>,
 <i> chkup </i>,
 <i> clean </i>,
-.IR secscan .
+<i> secscan </i>.
 <h2 id="heading10">AUTHOR</h2>
 <p class=indent>
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
