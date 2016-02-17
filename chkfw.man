@@ -134,7 +134,7 @@ Use
 to ensure that the ports 21 and 22 are open. Run in verbose mode.
 .SH FILES
 .IR <hostname>:/etc/sysconfig/iptables ,
-.IR <hostname>:/etc/sysconfig/iptables-config
+.IR <hostname>:/etc/sysconfig/iptables-config ,
 .IR /usr/local/etc/<hostname>.d/fw .
 
 .SH BUGS
@@ -161,4 +161,4 @@ The check on ftp transfer rates has been recently removed.
 .SH AUTHOR
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
 .SH HISTORY
-$Id: chkfw.man,v 1.56 2016/02/17 17:25:22 fulford Exp $
+$Id: chkfw.man,v 1.57 2016/02/17 17:53:36 fulford Exp fulford $
