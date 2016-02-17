@@ -1,5 +1,5 @@
 <h2 id="heading1">NAME</h2>
-<p><b>chkfw</b>
+<p class="indent"><b>chkfw</b>
 - check (and correct) running iptables firewall configurations on a remote host.</p>
 <h2 id="heading2">SYNOPSIS</h2>
 <b>chkfw</b> [[<b>-C</b>] [<b>-cc </b><i><email_address></i>] [<b>-d</b>]</p>
@@ -8,15 +8,15 @@
 [<b>-n</b>] [<b>-p </b><i><#,#...></i>] [<b>-T</b>] [<b>-u</b>|<b>-U</b>] [<b>-v</b>]] |</p>
 <i><hostname></i>|<b>-V</b></p>
 <h2 id="heading3">AVAILABILITY</h2>
-<p><b>chkfw</b>
+<p class="indent"><b>chkfw</b>
 is a Bourne shell script which should work equally well on all versions of UNIX,
 Linux and Mac OS X.
 <h2 id="heading4">DESCRIPTION</h2>
-<p><b>chkfw</b>
+<p class="indent"><b>chkfw</b>
 checks running firewalls against a known template on the administration
 server. If the running firewall's configuration has deviated from the known
 configuration
-<p><b>chkfw</b>
+<p class="indent"><b>chkfw</b>
 will attempt to restore the firewall to the approved configuration provided that
 the local firewall configuration and boot files are identical to those on the
 administration box and that the plesk configured firewall (if any) has not been activated.
@@ -27,11 +27,11 @@ Additionally ports which are expected to be open may be checked if enumerated
 on the command line.
 <h2 id="heading5">OPTIONS</h2>
 <p class="indent"> 5
-<p><b>-C</b></p>
+<p class="indent"><b>-C</b></p>
 Check and report on status of firewall and enumerated ports only. Do not change
 running configuration.
 <p class="indent">
-<p><b>-cc </b></p>
+<p class="indent"><b>-cc </b></p>
 .I <email_address>
 .br
 Send copies of warnings and alerts to 
@@ -48,7 +48,7 @@ if set with the
 .I -cc</p>
 option.
 <p class="indent">
-<p><b>--force-restore</b></p>
+<p class="indent"><b>--force-restore</b></p>
 This option should only be used with extreme caution. The firewall will be restarted
 with the configuration on the remote host as found in 
 .I /etc/sysconfig/iptables
@@ -68,53 +68,53 @@ ports to become available.
 Enumerated ports to be scanned with 
 .BR nmap .
 <p class="indent">
-<p><b>-T</b></p>
+<p class="indent"><b>-T</b></p>
 When raising alerts additionally send text messages to the recipient specified with the variable 
 .IR $txt .
 The mechanism employed is an email to SMS gateway so 
 .I $txt
 is a suitable email address.
 <p class="indent">
-<p><b>-u</b></p>
+<p class="indent"><b>-u</b></p>
 Update the firewall tables and firewall configuration file to synchronise
 the administration server with the target host only. 
-<p><b>chkfw</b>
+<p class="indent"><b>chkfw</b>
 will compare the output of 
-<p><b>"iptables -nL"</b></p>
+<p class="indent"><b>"iptables -nL"</b></p>
 with a template kept on the administration server and if they differ will
 archive the existing template and update the template with a copy of the output
 from the target host. The firewall configuration file will similarly be updated.
 This is to facilitate making changes on the target host and then synchronising 
 the records on the administration server.
-<p><b>NB</b>
+<p class="indent"><b>NB</b>
 The source file for reconfiguring the target host iptables is not at present
 changed by using 
-<p><b>-u</b></p>
+<p class="indent"><b>-u</b></p>
 option.
 <p class="indent">
-<p><b>-U</b></p>
+<p class="indent"><b>-U</b></p>
 With the
-<p><b>-U</b></p>
+<p class="indent"><b>-U</b></p>
 option the source firewall boot file will be updated from the remote firewall boot
 file (<i>/etc/sysconfig/iptables</i> by default) in addition to the template and configuration
 file as with the 
-<p><b>-u</b></p>
+<p class="indent"><b>-u</b></p>
 option above. It is an error to combine 
-<p><b>-u</b></p>
+<p class="indent"><b>-u</b></p>
 and 
-<p><b>-U</b></p>
+<p class="indent"><b>-U</b></p>
 on the command line. 
 <p class="indent">
-<p><b>-v</b></p>
+<p class="indent"><b>-v</b></p>
 Set verbose mode. Ordinarily 
-<p><b>chkfw</b>
+<p class="indent"><b>chkfw</b>
 operates silently unless problems are detected. In 
 .I verbose
 mode 
-<p><b>chkfw</b>
+<p class="indent"><b>chkfw</b>
 reports on each significant action.
 <p class="indent"> 5
-<p><b>-V</b></p>
+<p class="indent"><b>-V</b></p>
 Print version details and exit.
 <h2 id="heading6">EXAMPLES</h2>
 .IP
@@ -123,11 +123,11 @@ chkfw -m 30 -p 21,22 -v hostname</p>
 .ft R
 <p>
 Check the running 
-<p><b>iptables </b>
+<p class="indent"><b>iptables </b>
 firewall on 
 .IR hostname .
 Use 
-<p><b>nmap</b>
+<p class="indent"><b>nmap</b>
 to ensure that the ports 21 and 22 are open. Run in verbose mode.
 <h2 id="heading7">FILES</h2>
 .IR <hostname>:/etc/sysconfig/iptables ,
@@ -139,7 +139,7 @@ The script is quite crude having been developed to address problems experienced
 by City Linux clients running on CentOS servers at 1and1. It does depend on
 very specific file and remote access permissions. Particularly it expects that
 where root permission is required 
-<p><b>sudo</b>
+<p class="indent"><b>sudo</b>
 will be used. With judicious use of the 
 .I debug
 and
