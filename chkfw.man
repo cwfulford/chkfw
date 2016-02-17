@@ -16,13 +16,15 @@ Linux and Mac OS X.
 .B chkfw
 checks running firewalls against a known template on the administration
 server. If the running firewall's configuration has deviated from the known
-configuration
+configuration,
 .B chkfw
-will attempt to restore the firewall to the approved configuration provided that
-the local firewall configuration and boot files are identical to those on the
-administration box and that the plesk configured firewall (if any) has not been activated.
-Urgent alerts are sent by email and optionally by SMS test message (see \fB-T\fR option
-below).
+will attempt to restore the firewall to the approved configuration, provided
+that the local firewall configuration and boot files are identical to those on
+the administration box and that the plesk configured firewall (if any) has not
+been activated.
+.LP
+Urgent alerts are sent by email and optionally by SMS text message 
+(see \fB-T\fR option below).
 .LP
 Additionally ports which are expected to be open may be checked if enumerated
 on the command line.
@@ -159,4 +161,4 @@ The check on ftp transfer rates has been recently removed.
 .SH AUTHOR
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
 .SH HISTORY
-$Id: chkfw.man,v 1.55 2016/02/17 16:46:01 fulford Exp $
+$Id: chkfw.man,v 1.56 2016/02/17 17:25:22 fulford Exp fulford $

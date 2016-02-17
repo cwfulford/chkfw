@@ -6,7 +6,7 @@
 <p class=indent>
 <b>chkfw</b> [[<b>-C</b>] [<b>-cc </b><i><email_address></i>] [<b>-d</b>]
 [<b>-l</b>]
-[<b>-m</b><i> <#max_wait></i>]
+[\fB-m\<i><#max_wait></i>]</i>
 [<b>-n</b>] [<b>-p </b><i><#,#...></i>] [<b>-T</b>] [<b>-u</b>|<b>-U</b>] [<b>-v</b>]] |
 <i><hostname></i>|<b>-V</b>
 </p>
@@ -19,47 +19,49 @@ Linux and Mac OS X.
 <b>chkfw</b>
 checks running firewalls against a known template on the administration
 server. If the running firewall's configuration has deviated from the known
-configuration
+configuration,
 <b>chkfw</b>
-will attempt to restore the firewall to the approved configuration provided that
-the local firewall configuration and boot files are identical to those on the
-administration box and that the plesk configured firewall (if any) has not been activated.
-Urgent alerts are sent by email and optionally by SMS test message (see <b>-T</b> option
-below).
+will attempt to restore the firewall to the approved configuration, provided
+that the local firewall configuration and boot files are identical to those on
+the administration box and that the plesk configured firewall (if any) has not
+been activated.
+<p>
+Urgent alerts are sent by email and optionally by SMS text message 
+(see <b>-T</b> option below).
 <p>
 Additionally ports which are expected to be open may be checked if enumerated
 on the command line.
 <h2 id="heading5">OPTIONS</h2>
-<p class="indent"> 5
+<p class="indent">
 <b>-C</b>
 Check and report on status of firewall and enumerated ports only. Do not change
 running configuration.
 <p class="indent">
 <b>-cc </b>
-.I <email_address>
+<i><email_address></i>
 .br
 Send copies of warnings and alerts to 
-.I email_address
+<i>email_address</i>
 <p class="indent">
 <b>-d</b>
 Start in debug mode.
 .IR chkfw .
 A message will also be emailed to the address set as 
-.I email_rcpt
+<i>email_rcpt</i>
 with copies to
-.I email_address
+<i>email_address</i>
 if set with the 
-.I -cc
+<i>-cc</i>
 option.
 <p class="indent">
 <b>--force-restore</b>
 This option should only be used with extreme caution. The firewall will be restarted
 with the configuration on the remote host as found in 
-.I /etc/sysconfig/iptables
+<i>/etc/sysconfig/iptables</i>
 and 
 .IR /etc/sysconfig/iptables-config ,
 even if these differ from the canonical files stored on the administration server. 
-<p class="indent"> 5
+<p class="indent">
 <b>-l</b>
 Use the <i>syslog</i> facility to log the check and any alerts generated.
 <p class="indent">
@@ -67,7 +69,7 @@ Use the <i>syslog</i> facility to log the check and any alerts generated.
 Set the maximum time (in minutes) to wait for the 
 ports to become available.
 <p class="indent">
-<p class="indent"> 5
+<p class="indent">
 <b>-p #</b>[,<b>#</b>[,<b>#</b>]....]
 Enumerated ports to be scanned with 
 .BR nmap .
@@ -76,7 +78,7 @@ Enumerated ports to be scanned with
 When raising alerts additionally send text messages to the recipient specified with the variable 
 .IR $txt .
 The mechanism employed is an email to SMS gateway so 
-.I $txt
+<i>$txt</i>
 is a suitable email address.
 <p class="indent">
 <b>-u</b>
@@ -113,11 +115,11 @@ on the command line.
 Set verbose mode. Ordinarily 
 <b>chkfw</b>
 operates silently unless problems are detected. In 
-.I verbose
+<i>verbose</i>
 mode 
 <b>chkfw</b>
 reports on each significant action.
-<p class="indent"> 5
+<p class="indent">
 <b>-V</b>
 Print version details and exit.
 <h2 id="heading6">EXAMPLES</h2>
@@ -145,9 +147,9 @@ very specific file and remote access permissions. Particularly it expects that
 where root permission is required 
 <b>sudo</b>
 will be used. With judicious use of the 
-.I debug
+<i>debug</i>
 and
-.I verbose 
+<i>verbose </i>
 modes, permission and configuration problems should be relatively easy to 
 resolve.
 <p>
@@ -162,4 +164,4 @@ The check on ftp transfer rates has been recently removed.
 .SH AUTHOR
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
 .SH HISTORY
-$Id: chkfw.man,v 1.55 2016/02/17 16:46:01 fulford Exp $
+$Id: chkfw.man,v 1.56 2016/02/17 17:25:22 fulford Exp fulford $
