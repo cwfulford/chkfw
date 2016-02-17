@@ -5,10 +5,10 @@
 </p>
 <h2 id="heading2">SYNOPSIS</h2>
 <p class="indent">
-<b>chkfw</b> [[<b>-C</b>] [<b>-cc </b><i>&lt;email_address&gt;</i>] [<b>-d</b>]
+<b>chkfw</b> [[<b>-C</b>] [\fB-cc <i>&lt;email_address&gt;</i>] [<b>-d</b>]
 [<b>-l</b>]
 [\fB-m\<i>&lt;#max_wait&gt;</i>]</i>
-[<b>-n</b>] [<b>-p </b><i>&lt;#,#...&gt;</i>] [<b>-T</b>] [<b>-u</b>|<b>-U</b>] [<b>-v</b>]] |
+[<b>-n</b>] [\fB-p <i>&lt;#,#...&gt;</i>] [<b>-T</b>] [<b>-u</b>|<b>-U</b>] [<b>-v</b>]] |
 <i>&lt;hostname&gt;</i>|<b>-V</b>
 </p>
 <h2 id="heading3">AVAILABILITY</h2>
@@ -78,7 +78,7 @@ even if these differ from the canonical files stored on the administration serve
 Use the <i>syslog</i> facility to log the check and any alerts generated.
 </p>
 <p class="indent">
-<b>-m #</b><i>&lt;maxi_wait&gt;</i>
+\fB-m #<i>&lt;maxi_wait&gt;</i>
 Set the maximum time (in minutes) to wait for the 
 ports to become available.
 </p>
