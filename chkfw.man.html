@@ -1,12 +1,12 @@
 <h2 id="heading1">NAME</h2>
 <p class="indent">
-<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
+<b><a href="./scripts.php?script=chkfw">chkfw</a></b>
 - check (and correct) running iptables firewall configurations on a remote host.
 </p>
 <h2 id="heading2">SYNOPSIS</h2>
 <p class="indent">
 
-<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
+<b><a href="./scripts.php?script=chkfw">chkfw</a></b>
  [[
 <b>-C</b>
 ] [
@@ -44,17 +44,17 @@
 </p>
 <h2 id="heading3">AVAILABILITY</h2>
 <p class="indent">
-<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
+<b><a href="./scripts.php?script=chkfw">chkfw</a></b>
 is a Bourne shell script which should work equally well on all versions of UNIX,
 Linux and Mac OS X.
 </p>
 <h2 id="heading4">DESCRIPTION</h2>
 <p class="indent">
-<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
+<b><a href="./scripts.php?script=chkfw">chkfw</a></b>
 checks running firewalls against a known template on the administration
 server. If the running firewall's configuration has deviated from the known
 configuration,
-<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
+<b><a href="./scripts.php?script=chkfw">chkfw</a></b>
 will attempt to restore the firewall to the approved configuration, provided
 that the local firewall configuration and boot files are identical to those on
 the administration box and that the plesk configured firewall (if any) has not
@@ -90,7 +90,7 @@ Send copies of warnings and alerts to
 <b>-d</b>&nbsp;&nbsp;&nbsp;
 
 Start in debug mode.
-<i><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></i>.
+<i><a href="./scripts.php?script=chkfw">chkfw</a></i>.
 A message will also be emailed to the address set as 
 <i>email_rcpt</i>
 with copies to
@@ -149,7 +149,7 @@ is a suitable email address.
 <b>-u</b>&nbsp;&nbsp;&nbsp;
 Update the firewall tables and firewall configuration file to synchronise
 the administration server with the target host only. 
-<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
+<b><a href="./scripts.php?script=chkfw">chkfw</a></b>
 will compare the output of 
 <b>"iptables -nL"</b>
 with a template kept on the administration server and if they differ will
@@ -182,11 +182,11 @@ on the command line.
 <p class="indent">
 <b>-v</b>&nbsp;&nbsp;&nbsp;
 Set verbose mode. Ordinarily 
-<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
+<b><a href="./scripts.php?script=chkfw">chkfw</a></b>
 operates silently unless problems are detected. In 
 <i>verbose</i>
 mode 
-<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
+<b><a href="./scripts.php?script=chkfw">chkfw</a></b>
 reports on each significant action.
 </p>
 <p class="indent">
@@ -198,7 +198,7 @@ Print version details and exit.
 
 </p><div class="cmdline">
 <pre>
-<a href="./scripts.php?script=chkfw"><i>chkfw</i></a> -m 30 -p 21,22 -v hostname
+chkfw -m 30 -p 21,22 -v hostname
 </pre></div>
 <p class="indent">
 </p>
@@ -237,17 +237,16 @@ The check on ftp transfer rates has been recently removed.
 </p>
 <h2 id="heading9">SEE ALSO</h2>
 <p class="indent">
-<a href="./scripts.php?script=chkdf&man=y"><i>chkdf</i>,</a>
-<a href="./scripts.php?script=chkftpd&man=y"><i>chkftpd</i>,</a>
-<a href="./scripts.php?script=chkmail&man=y"><i>chkmail</i>,</a>
-<a href="./scripts.php?script=chkup&man=y"><i>chkup</i>,</a>
-<a href="./scripts.php?script=clean&man=y"><i>clean</i>,</a>
-<a href="./scripts.php?script=secscan&man=y"><i>secscan</i>.</a>
+<a href="./scripts.php?script=chkdf&amp;man=y"><i>chkdf</i>,</a>
+<a href="./scripts.php?script=chkftpd&amp;man=y"><i>chkftpd</i>,</a>
+<a href="./scripts.php?script=chkmail&amp;man=y"><i>chkmail</i>,</a>
+<a href="./scripts.php?script=chkup&amp;man=y"><i>chkup</i>,</a>
+<a href="./scripts.php?script=clean&amp;man=y"><i>clean</i>,</a>
+<a href="./scripts.php?script=secscan&amp;man=y"><i>secscan</i>.</a>
 </p>
 <h2 id="heading10">AUTHOR</h2>
 <p class="indent">
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
-.SH HISTORY
 $Id: chkfw.man,v 1.57 2016/02/17 17:53:36 fulford Exp $
 </p>
 	
