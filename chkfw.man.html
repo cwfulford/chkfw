@@ -1,29 +1,60 @@
 <h2 id="heading1">NAME</h2>
 <p class="indent">
-<b>chkfw</b>
+<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
 - check (and correct) running iptables firewall configurations on a remote host.
 </p>
 <h2 id="heading2">SYNOPSIS</h2>
 <p class="indent">
-<b>chkfw</b> [[<b>-C</b>] [<b>-cc </b><i>&lt;email_address&gt;</i>] [<b>-d</b>]
-[<b>-l</b>]
-[\fB-m\<i>&lt;#max_wait&gt;</i>]</i>
-[<b>-n</b>] [<b>-p </b><i>&lt;#,#...&gt;</i>] [<b>-T</b>] [<b>-u</b>|<b>-U</b>] [<b>-v</b>]] |
-<i>&lt;hostname&gt;</i>|<b>-V</b>
+
+<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
+ [[
+<b>-C</b>
+] [
+<b>-cc </b>
+<i>&lt;email_address&gt;</i>
+] [
+<b>-d</b>
+]
+[
+<b>-l</b>
+]
+[
+<b>-m</b>
+<i> &lt;#max_wait&gt;</i>
+]
+[
+<b>-n</b>
+] [
+<b>-p </b>
+<i>&lt;#,#...&gt;</i>
+] [
+<b>-T</b>
+] [
+<b>-u</b>
+|
+<b>-U</b>
+] [
+<b>-v</b>
+]] |
+
+<i>&lt;hostname&gt;</i>
+|
+<b>-V</b>
+
 </p>
 <h2 id="heading3">AVAILABILITY</h2>
 <p class="indent">
-<b>chkfw</b>
+<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
 is a Bourne shell script which should work equally well on all versions of UNIX,
 Linux and Mac OS X.
 </p>
 <h2 id="heading4">DESCRIPTION</h2>
 <p class="indent">
-<b>chkfw</b>
+<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
 checks running firewalls against a known template on the administration
 server. If the running firewall's configuration has deviated from the known
 configuration,
-<b>chkfw</b>
+<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
 will attempt to restore the firewall to the approved configuration, provided
 that the local firewall configuration and boot files are identical to those on
 the administration box and that the plesk configured firewall (if any) has not
@@ -31,7 +62,9 @@ been activated.
 </p>
 <p class="indent">
 Urgent alerts are sent by email and optionally by SMS text message 
-(see <b>-T</b> option below).
+(see 
+<b>-T</b>
+ option below).
 </p>
 <p class="indent">
 Additionally ports which are expected to be open may be checked if enumerated
@@ -41,21 +74,23 @@ on the command line.
 <p class="indent">
 </p>
 <p class="indent">
-<b>-C</b>
+<b>-C</b>&nbsp;&nbsp;&nbsp;
 Check and report on status of firewall and enumerated ports only. Do not change
 running configuration.
 </p>
 <p class="indent">
 <b>-cc </b>
 <i>&lt;email_address&gt;</i>
-.br
+<br/>
 Send copies of warnings and alerts to 
 <i>email_address</i>
 </p>
 <p class="indent">
-<b>-d</b>
+
+<b>-d</b>&nbsp;&nbsp;&nbsp;
+
 Start in debug mode.
-<i>chkfw</i>.
+<i><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></i>.
 A message will also be emailed to the address set as 
 <i>email_rcpt</i>
 with copies to
@@ -74,23 +109,36 @@ and
 even if these differ from the canonical files stored on the administration server. 
 </p>
 <p class="indent">
-<b>-l</b>
-Use the <i>syslog</i> facility to log the check and any alerts generated.
+
+<b>-l</b>&nbsp;&nbsp;&nbsp;
+
+Use the 
+<i>syslog</i>
+ facility to log the check and any alerts generated.
 </p>
 <p class="indent">
-<b>-m #</b><i>&lt;maxi_wait&gt;</i>
+
+<b>-m #</b>
+<i>&lt;maxi_wait&gt;</i>
+
 Set the maximum time (in minutes) to wait for the 
 ports to become available.
 </p>
 <p class="indent">
 </p>
 <p class="indent">
-<b>-p #</b>[,<b>#</b>[,<b>#</b>]....]
+
+<b>-p #</b>
+[,
+<b>#</b>
+[,
+<b>#</b>
+]....]
 Enumerated ports to be scanned with 
-.BR nmap .
+<b>nmap.</b>
 </p>
 <p class="indent">
-<b>-T</b>
+<b>-T</b>&nbsp;&nbsp;&nbsp;
 When raising alerts additionally send text messages to the recipient specified with the variable 
 <i>$txt</i>.
 The mechanism employed is an email to SMS gateway so 
@@ -98,10 +146,10 @@ The mechanism employed is an email to SMS gateway so
 is a suitable email address.
 </p>
 <p class="indent">
-<b>-u</b>
+<b>-u</b>&nbsp;&nbsp;&nbsp;
 Update the firewall tables and firewall configuration file to synchronise
 the administration server with the target host only. 
-<b>chkfw</b>
+<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
 will compare the output of 
 <b>"iptables -nL"</b>
 with a template kept on the administration server and if they differ will
@@ -112,44 +160,47 @@ the records on the administration server.
 <b>NB</b>
 The source file for reconfiguring the target host iptables is not at present
 changed by using 
-<b>-u</b>
+<b>-u</b>&nbsp;&nbsp;&nbsp;
 option.
 </p>
 <p class="indent">
-<b>-U</b>
+<b>-U</b>&nbsp;&nbsp;&nbsp;
 With the
-<b>-U</b>
+<b>-U</b>&nbsp;&nbsp;&nbsp;
 option the source firewall boot file will be updated from the remote firewall boot
-file (<i>/etc/sysconfig/iptables</i> by default) in addition to the template and configuration
+file (
+<i>/etc/sysconfig/iptables</i>
+ by default) in addition to the template and configuration
 file as with the 
-<b>-u</b>
+<b>-u</b>&nbsp;&nbsp;&nbsp;
 option above. It is an error to combine 
-<b>-u</b>
+<b>-u</b>&nbsp;&nbsp;&nbsp;
 and 
-<b>-U</b>
+<b>-U</b>&nbsp;&nbsp;&nbsp;
 on the command line. 
 </p>
 <p class="indent">
-<b>-v</b>
+<b>-v</b>&nbsp;&nbsp;&nbsp;
 Set verbose mode. Ordinarily 
-<b>chkfw</b>
+<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
 operates silently unless problems are detected. In 
 <i>verbose</i>
 mode 
-<b>chkfw</b>
+<b><a href="./scripts.php?script=chkfw"><i>chkfw</i></a></b>
 reports on each significant action.
 </p>
 <p class="indent">
-<b>-V</b>
+<b>-V</b>&nbsp;&nbsp;&nbsp;
 Print version details and exit.
 </p>
 <h2 id="heading6">EXAMPLES</h2>
 <p class="indent">
-<div class="cmdline">
+
+</p><div class="cmdline">
 <pre>
-chkfw -m 30 -p 21,22 -v hostname
-</pre>
-</div>
+<a href="./scripts.php?script=chkfw"><i>chkfw</i></a> -m 30 -p 21,22 -v hostname
+</pre></div>
+<p class="indent">
 </p>
 <p class="indent">
 Check the running 
@@ -186,17 +237,17 @@ The check on ftp transfer rates has been recently removed.
 </p>
 <h2 id="heading9">SEE ALSO</h2>
 <p class="indent">
-<i>chkdf</i>,
-<i>chkftpd</i>,
-<i>chkmail</i>,
-<i>chkup</i>,
-<i>clean</i>,
-<i>secscan</i>.
+<a href="./scripts.php?script=chkdf&man=y"><i>chkdf</i>,</a>
+<a href="./scripts.php?script=chkftpd&man=y"><i>chkftpd</i>,</a>
+<a href="./scripts.php?script=chkmail&man=y"><i>chkmail</i>,</a>
+<a href="./scripts.php?script=chkup&man=y"><i>chkup</i>,</a>
+<a href="./scripts.php?script=clean&man=y"><i>clean</i>,</a>
+<a href="./scripts.php?script=secscan&man=y"><i>secscan</i>.</a>
 </p>
 <h2 id="heading10">AUTHOR</h2>
 <p class="indent">
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
-</p>
-<h2 id="heading11">HISTORY</h2>
-<p class="indent">
+.SH HISTORY
 $Id: chkfw.man,v 1.57 2016/02/17 17:53:36 fulford Exp $
+</p>
+	
