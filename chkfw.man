@@ -6,7 +6,7 @@
 \fBchkfw\fR [[\fB-C\fR] [\fB-cc \fI<email_address>\fR] [\fB-d\fR]
 [\fB-l\fR]
 [\fB-m\fI <#max_wait>\fR]
-[\fB-n\fR] [\fB-p \fI<#,#...>\fR] [\fB-T\fR] [\fB-u\fR|\fB-U\fR] [\fB-v\fR]] |
+[\fB-n\fR] [\fB-p \fI<#,#...>\fR] [\fB-l\fR] [\fB-T\fR] [\fB-u\fR|\fB-U\fR] [\fB-v\fR]] |
 \fI<hostname>\fR|\fB-V\fR
 .SH AVAILABILITY
 .B chkfw
@@ -161,4 +161,4 @@ The check on ftp transfer rates has been recently removed.
 .SH AUTHOR
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
 .SH HISTORY
-$Id: chkfw.man,v 1.59 2016/11/12 09:27:49 fulford Exp fulford $
+$Id: chkfw.man,v 1.60 2016/11/12 09:37:19 fulford Exp fulford $
