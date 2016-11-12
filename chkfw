@@ -1,7 +1,7 @@
 #!/bin/bash
-#$Id: chkfw,v 1.101 2015/09/22 14:23:53 fulford Exp $
+#$Id: chkfw,v 1.102 2016/11/12 09:13:08 fulford Exp fulford $
 # $Source: /src/merlin/usr/local/etc/RCS/chkfw,v $
-# $Revision: 1.101 $
+# $Revision: 1.102 $
 # Author C W Fulford.
 # Copyright 2012 - 2013 (c) C W Fulford.
 # Licensed for public use under the LGPL.
@@ -9,7 +9,7 @@
 ###################################################################
 cmd=`basename $0`
 syntax="$0 [[-C] [-cc <email_copy>]  [-d] [-m <max_wait in minutes>] [-p #[,#...]] [-T] [-u|-U] [-v]] <hostname> |-h|-V"
-ver=`echo "$Id: chkfw,v 1.101 2015/09/22 14:23:53 fulford Exp $"|awk '{print $3,$4,$5}'`
+ver=`echo "$Id: chkfw,v 1.102 2016/11/12 09:13:08 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
 while [ $# -gt 0 ];do
 	case $1 in
 		-C) chkonly=:;shift;;
@@ -138,7 +138,7 @@ _host_up (){ 	mins=0
 # function to check status of running firewall
 _fwok (){
 	date=`date`
-	ssh  $host "sudo iptables -nL"  >$tmp
+	ssh -q  $host "sudo iptables -nL"  >$tmp
 	date > $fwchlog	
 	if [ `sudo diff $tmp $tmplt|tee -a $fwchlog |wc -l` -eq 0 ];then 
 		e_val=0
@@ -150,7 +150,7 @@ _fwok (){
  
 _update (){
 	update=$1
-	ssh $host "sudo iptables -nL" >$tmp
+	ssh -q $host "sudo iptables -nL" >$tmp
 	tmplt_dir=`dirname $tmplt`
 	[ ! -d $tmplt_dir ] && sudo mkdir -p $tmplt_dir
 	[ ! -f $tmplt ] && sudo touch $tmplt
@@ -167,7 +167,7 @@ _update (){
 	src_dir=`dirname $iptables_cfg_src`
 	[ -d $src_dir ] || sudo mkdir -p $src_dir
 	[ -f $iptables_cfg_src ] || sudo touch $iptables_cfg_src
-	ssh ${host} cat $iptables_cfg > $tmp
+	ssh -q ${host} cat $iptables_cfg > $tmp
 	if ! diff $tmp $iptables_cfg_src>/dev/null;then
 		[ $verbose ] && echo "$cmd: updating $iptables_cfg_src"
 		sudo cp $tmp $iptables_cfg_src
@@ -176,7 +176,7 @@ _update (){
 	fi
 	if [ $update -gt 1 ];then
 		[ -f $iptables_src ]||sudo touch $iptables_src
-		ssh ${host} "cat $iptables" >$tmp.iptables
+		ssh -q ${host} "cat $iptables" >$tmp.iptables
 		if ! diff $tmp.iptables $iptables_src>/dev/null;then
 			[ $verbose ] && echo "$cmd: updating $iptables_src"
 			sudo cp $tmp.iptables $iptables_src
@@ -210,7 +210,7 @@ if _host_up;then
 
  	# Check fw config if server were rebooted, is the remote
 	# configuration the same as the source on the admin server.
-	if ssh $host "cat ${iptables_cfg}"|
+	if ssh  -q $host "cat ${iptables_cfg}"|
 		sudo diff - $iptables_cfg_src>/dev/null
   	then
   		ipcfg_ok=0
@@ -223,7 +223,7 @@ if _host_up;then
 		[ $verbose ]&& echo "$cmd: $msg" >&2
   	fi
  	# Check if fw boot file the same as on admin server
-        if ssh $host "cat ${iptables}"|
+        if ssh -q $host "cat ${iptables}"|
 		sudo diff - $iptables_src>/dev/null
 	then
 		ipcfg_ok=0
@@ -237,7 +237,7 @@ if _host_up;then
 	fi
 
   	# Check if psa firewall activated.
-  	if  ssh $host "test -e $psa_fwsw" ;then
+  	if  ssh -q $host "test -e $psa_fwsw" ;then
 		fw_restore=no
   		date=${date:-`date`}
   		echo "$msg psa firewall activated -$date." |_alert 
@@ -247,12 +247,12 @@ if _host_up;then
   	fi
 	if [ -n "$forcerestore" ] ;then
 		fw_restore=yes
-		cat $iptables_src |ssh $host "sudo dd of=$iptables"
-		cat ${iptables_cfg_src}|ssh $host "sudo dd of=$iptables_cfg"
+		cat $iptables_src |ssh -q $host "sudo dd of=$iptables"
+		cat ${iptables_cfg_src}|ssh -q $host "sudo dd of=$iptables_cfg"
 	fi
 	if [ "$fw_restore" = "yes" ] ;then
 		[ -n "$chkonly" ] && exit
-		echo ssh $host "sudo /etc/init.d/iptables restart&"
+		echo ssh -q $host "sudo /etc/init.d/iptables restart&"
 		sleep 10 
 		if _fwok ;then
 			msg="FW restored"
