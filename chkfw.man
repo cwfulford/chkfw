@@ -1,4 +1,4 @@
-.TH CHKFW 8l "11 September r1.103
+.TH CHKFW 8l "11 September r1.104
 .SH NAME
 .B chkfw
 - check (and correct) running iptables firewall configurations on a remote host.
@@ -161,4 +161,4 @@ The check on ftp transfer rates has been recently removed.
 .SH AUTHOR
 Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
 .SH HISTORY
-$Id: chkfw.man,v 1.58 2016/11/12 09:25:12 fulford Exp fulford $
+$Id: chkfw.man,v 1.59 2016/11/12 09:27:49 fulford Exp fulford $
